@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
 :root {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   --default-border: 2px dotted grey;
   --default-margin: 50px;
 }
@@ -38,4 +38,8 @@ fieldset {
   font-size: 1em;
   margin: var(--default-margin) 0px;
   border: var(--default-border);
+}
+
+.highlight {
+  background-color: yellow;
 }

@@ -1,49 +1,45 @@
-// COMPLETE THE TODOs BELOW...
+let searchButton = document.querySelector("#search-button");
+let textBox = document.querySelector("#textbox");
+let sentence = document.querySelector("#sentence");
+let searchResults = document.querySelector("#search-results");
+let original = sentence.innerHTML;
 
-// On our HTML page, we have a #search-button, a #textbox input,
-// box a #sentence, and a #search-results DIV.
+searchButton.addEventListener("click", function () {
+  sentence.innerHTML = original;
+  const text = sentence.innerText.toLowerCase();
+  const userInput = textBox.value.toLowerCase().trim();
+  if (!userInput) {
+    searchResults.innerHTML = "Enter text in search bar.";
+  } else if (text.includes(userInput)) {
+    searchResults.innerHTML = "A match was found!";
 
-// Note: The primary TODOs for this Activity will not require 
-// you to edit the HTML or CSS.
+    //----------------------------------------------
+    //Solution that uses .split() and .join()
+    //----------------------------------------------
+    // const segments = text.split(userInput);
 
-// TODO 1: Use querySelector to assign EACH of the above 
-// elements to a variable, just like this:
-let searchButton = document.querySelector('#search-button')
+    // const numberOfMatches = segments.length - 1;
+    // searchResults.innerHTML += `<br><br>'${userInput}' appears ${numberOfMatches} time${
+    //   numberOfMatches > 1 ? "s" : ""
+    // }.`;
 
-searchButton.addEventListener('click', function () {
- 
-  // TODO 2: Write an IF statement which determines whether
-  // the user-supplied string from #textbox is included in
-  // the #sentence string.
-  
-  // Hint 1: To get the user-supplied string from the input 
-  // box (#textbox), use the property .value on the variable
-  // you assigned the textbox element to.
+    // const elementString = `<span class="highlight">${userInput}</span>`;
+    // const highlightedText = segments.join(elementString);
+    // sentence.innerHTML = highlightedText;
 
-  // Hint 2: To get the string contained within #sentence, use
-  // the property .innerText on the variable you assigned the
-  // #sentence element to.
-
-  // Hint 3: You can check whether string1 contains string2
-  // by using string1.includes(string2) – which will return
-  // true or false. 
-
-  // TODO 3: If the user-supplied string is included in the
-  // #sentence string, update the innerText of #search-results
-  // with a success message (such as, "A match was found!"),
-  // otherwise update it with a failure message (such as, 
-  // "No results. Too bad!")
-
-})
-
-// STRETCH GOALS (easiest to hardest):
-//
-//  • Customize the CSS to your liking.
-//  • Use .trim() to remove unnecessary whitespace from the
-//    user-supplied string.
-//  • Use .toLowercase() on both the sentence and the user-
-//    supplied string, so that your word search is case-
-//    insensitive.
-//  • Count the number of times the word appears.
-//  • Display the word count for the user.
-//  • Find a way to highlight the matching word.
+    //----------------------------------------------
+    // Solution that uses regular expressions, .match(), and .replace()
+    //----------------------------------------------
+    const regex = new RegExp(userInput, "gi");
+    const numberOfMatches = text.match(regex).length;
+    searchResults.innerHTML += `<br><br>'${userInput}' appears ${numberOfMatches} time${
+      numberOfMatches > 1 ? "s" : ""
+    }.`;
+    const elementString = `<span class="highlight">${userInput}</span>`;
+    const highlightedSentence = original.replace(regex, elementString);
+    sentence.innerHTML = highlightedSentence;
+  } else {
+    searchResults.innerHTML = "No results. Too bad!";
+  }
+  textBox.value = "";
+});
